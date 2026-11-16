@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>PwVault 界面原型</title>
+  <link rel="stylesheet" href="mock.css">
+  <style>.star svg { fill: currentColor; }</style>
+</head>
+<body>
+  <script src="shared.js"></script>
+  <script src="pages.js"></script>
+  <script>
+    // index.html?p=<页面名> 渲染单个页面（1280x800）；不带参数时显示页面索引。
+    const p = new URLSearchParams(location.search).get('p');
+    if (p && PAGES[p]) {
+      document.title = 'PwVault - ' + PAGES[p].title;
+      document.body.innerHTML = PAGES[p].html();
+    } else {
+      document.documentElement.classList.add('gallery');
+      document.body.innerHTML = '<h2>PwVault 界面原型</h2><ol style="line-height:2">' +
+        Object.entries(PAGES).map(([k, v]) => `<li><a href="?p=${k}">${v.title}</a> <span class="mut3">→ ${v.file}</span></li>`).join('') + '</ol>';
+    }
+  </script>
+</body>
+</html>
